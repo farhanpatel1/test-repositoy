@@ -1,0 +1,14 @@
+{
+    "action": "closed",
+    "pull_request": {
+      "merged": true,
+      "title": "Test PR [BUMP_MINOR]",
+      "base": {
+        "ref": "main"
+      }
+    },
+    "repository": {
+      "name": "TinyDashboardBackend"
+    }
+  }
+  
