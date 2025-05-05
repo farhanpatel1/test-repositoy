@@ -1,4 +1,3 @@
----
 name: Bump Version and Publish Docker
 
 on:
@@ -31,30 +30,7 @@ jobs:
 
       - name: Bump Version
         id: bump
-        run: |
-          import re
-          import os
-
-          pr_title = os.environ['PR_TITLE']
-          with open('VERSION', 'r') as f:
-              version = f.read().strip()
-          major, minor, patch = map(int, version.split('.'))
-
-          if '[BUMP_MAJOR]' in pr_title:
-              major += 1
-              minor = 0
-              patch = 0
-          elif '[BUMP_MINOR]' in pr_title:
-              minor += 1
-              patch = 0
-          else:
-              patch += 1
-
-          new_version = f"{major}.{minor}.{patch}"
-          with open('VERSION', 'w') as f:
-              f.write(new_version)
-
-          print(f"::set-output name=version::{new_version}")
+        run: python3 .github/scripts/bump_version.py
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
 
@@ -94,4 +70,3 @@ jobs:
           package-type: 'container'
           min-versions-to-keep: 5
           delete-only-untagged-versions: true
-
